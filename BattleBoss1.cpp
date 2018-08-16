@@ -13,8 +13,9 @@ BattleBoss1::BattleBoss1() {
     boss.setPosition(bossTexture.getSize().x/2, bossTexture.getSize().y/2);
 
     hurt = sf::Sound(hurtBuffer);
+    arrowSound = sf::Sound(arrowBuffer);
 
-    bossTrack.openFromFile("VampireKiller.ogg");
+    bossTrack.openFromFile("Resources/VampireKiller.ogg");
     bossTrack.setLoop(true);
     bossTrack.play();
 
@@ -48,6 +49,7 @@ void BattleBoss1::onEvent(sf::Event& event) {
             if (event.type == sf::Event::KeyPressed && event.key.code == attackPatterns[indexPattern][indexAttack].getKey()
                 && shake == sf::Time::Zero) {
                 indexAttack++;
+                arrowSound.play();
                 std::cout << "building attack up" << std::endl;
 
                 if (indexAttack >= attackPatterns[indexPattern].size()) {

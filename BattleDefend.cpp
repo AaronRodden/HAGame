@@ -14,13 +14,33 @@ std::vector<sf::Color> BattleDefend::colors={sf::Color::Red, sf::Color::Cyan, sf
 
 BattleDefend::BattleDefend() {
     shieldStates.resize(10);
+
     circ.setFillColor(sf::Color::White);
     circ.setRadius(10.f);
     circ.setOrigin(circ.getRadius(), circ.getRadius());
 
+
     rect.setSize(sf::Vector2f(64, 16));
 
     shieldSound = sf::Sound(shieldBreakBuffer);
+
+    font.loadFromFile("Resources/BebasNeueBold.ttf");
+    Q.setFont(font);
+    W.setFont(font);
+    E.setFont(font);
+    R.setFont(font);
+    Q.setString("Q");
+    Q.setCharacterSize(50);
+    W.setString("W");
+    W.setCharacterSize(50);
+    E.setString("E");
+    E.setCharacterSize(50);
+    R.setString("R");
+    R.setCharacterSize(50);
+    qwer.push_back(Q);
+    qwer.push_back(W);
+    qwer.push_back(E);
+    qwer.push_back(R);
 
 }
 void BattleDefend::onEvent(sf::Event& event) {
@@ -39,6 +59,7 @@ void BattleDefend::update(sf::Time delta) {
             if(shieldStates[i].alpha>=3.f&&!shieldStates[i].broken) {
                 shieldSound.play();
                 shieldStates[i].broken=true;
+                std::cout << "shield " << i << " broke" << std::endl;
             }
         }
         else {
@@ -56,7 +77,12 @@ void BattleDefend::update(sf::Time delta) {
 void BattleDefend::draw(sf::RenderTarget& window) {
 
 
-    window.draw(circ);
+    for (int i = 0; i < (int) qwer.size(); i++) {
+        qwer[i].setPosition((window.getSize().x/4-(rect.getSize().x*3.5))+i*rect.getSize().x*2 +20, window.getSize().y/2 + 235);
+        window.draw(qwer[i]);
+    }
+
+    //window.draw(circ);
     for(int i=0;i<4;i++) {
         if(sf::Keyboard::isKeyPressed(keys[i])) {
             sf::Color c=colors[i];
@@ -66,6 +92,8 @@ void BattleDefend::draw(sf::RenderTarget& window) {
             window.draw(rect);
         }
     }
+
+
 
 }
 BattleDefend::~BattleDefend() {

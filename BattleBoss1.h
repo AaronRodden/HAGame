@@ -49,14 +49,17 @@ public:
 
 class BattleBoss1: public BattleBase {
 
-    sf::Texture& arrowTexture = ResourceManager::getTexture("arrow64.png");
+    sf::Texture& arrowTexture = ResourceManager::getTexture("Resources/arrow64.png");
     sf::Sprite arrow;
 
-    sf::Texture& bossTexture = ResourceManager::getTexture("boss1.png");
+    sf::Texture& bossTexture = ResourceManager::getTexture("Resources/boss1.png");
     sf::Sprite boss;
 
-    sf::SoundBuffer& hurtBuffer = ResourceManager::getSoundFX("oof.wav");
+    sf::SoundBuffer& hurtBuffer = ResourceManager::getSoundFX("Resources/oof.wav");
     sf::Sound hurt;
+
+    sf::SoundBuffer& arrowBuffer = ResourceManager::getSoundFX("Resources/Blaster.wav");
+    sf::Sound arrowSound;
 
     sf::Music bossTrack;
 
